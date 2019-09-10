@@ -3,10 +3,8 @@
 int main(int ac, char **av)
 {
 	QApplication app(ac, av);
-	GLtree treeWin;
-	//Celtree tree;
 
-	treeWin.show();
-    
+	MainWin		main_win;
+    main_win.show();
 	return app.exec();
 }

@@ -8,7 +8,7 @@
 typedef struct s_view
 {
 	t_pos2D_d center(){return (t_pos2D_d)
-	{.x = min.x + (max.x - min.x)/2, .y = min.y + (max.y - min.y)/2};}
+	{min.x + (max.x - min.x)/2, min.y + (max.y - min.y)/2};}
 	t_pos2D_d min, max;
 }t_view;
 

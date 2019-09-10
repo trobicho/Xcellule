@@ -3,16 +3,17 @@
 
 GLtree::GLtree(): WinGL(60, nullptr, "Xcellule")
 {
-	m_view.min = (t_pos2D_d){.x = -20, .y = -20};
-	m_view.max = (t_pos2D_d){.x = 20, .y = 20};
+	setFocusPolicy(Qt::ClickFocus);
+	m_view.min = (t_pos2D_d){-20, -20};
+	m_view.max = (t_pos2D_d){20, 20};
 
 	m_ctree = new Celtree(nullptr, (t_pos2D){0, 0},
 			(t_pos2D){(int)0x80000000, (int)0x80000000}, 
 			(t_pos2D){(int)0x7FFFFFFF, (int)0x7FFFFFFF});
-	m_ctree->set_maxObject(6);
+	m_ctree->set_maxObject(9);
 	m_ctree->set_rules(&m_rules_gol);
 	LoaderRLE loader;
-	loader.load(m_ctree, "/home/tom/Xcellule2D_N/preconfig/rendell/comp.lif");
+	loader.load(m_ctree, "/Volumes/Storage/goinfre/trobicho/jslife/misc/heisenburp-46.lif");
 	/*
 	m_ctree->obj_add((t_cel){0, 0, 1});
 	m_ctree->obj_add((t_cel){0, 1, 1});
