@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QCoreApplication>
+#include "File_panel.h"
 #include "GLtree.h"
 //#include <QPushButton>
 
@@ -12,6 +13,7 @@ class MainWin: public QMainWindow
     public:
         MainWin();
         ~MainWin(){};
+		void create_dock_windows();
 
     private:
 		GLtree		m_tree_win;

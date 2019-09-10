@@ -122,13 +122,31 @@ void GLtree::paintCel(t_cel &cel)
 void GLtree::view_zoom(t_pos2D_d center, double zoom)
 {
 	zoom=1/zoom;
-	double VMinX=(m_view.min.x-center.x)*zoom+center.x, VMaxX=(m_view.max.x-center.x)*zoom+center.x;
-	double VMinY=(m_view.min.y-center.y)*zoom+center.y, VMaxY=(m_view.max.y-center.y)*zoom+center.y;
-	if(VMaxX-VMinX >= VIEW_MIN_W && VMaxY-VMinY >= VIEW_MIN_H){
+	double	VMinX=(m_view.min.x-center.x)*zoom+center.x, VMaxX=(m_view.max.x-center.x)*zoom+center.x;
+	double	VMinY=(m_view.min.y-center.y)*zoom+center.y, VMaxY=(m_view.max.y-center.y)*zoom+center.y;
+	double	d;
+
+	if (VMaxX-VMinX >= VIEW_MIN_W && VMaxY-VMinY >= VIEW_MIN_H)
+	{
 		m_view.min.x=VMinX;
 		m_view.max.x=VMaxX;
 		m_view.min.y=VMinY;
 		m_view.max.y=VMaxY;
+	}
+	else
+	{
+		if (VMaxX-VMinX < VIEW_MIN_W)
+		{
+			d = (1.0 - ((VMaxX - VMinX) / VIEW_MIN_W)) / 2.0;
+			m_view.max.x += d;
+			m_view.min.x -= d;
+		}
+		if (VMaxY-VMinY < VIEW_MIN_H)
+		{
+			d = (1.0 - ((VMaxY - VMinY) / VIEW_MIN_H)) / 2.0;
+			m_view.max.y += d;
+			m_view.min.y -= d;
+		}
 	}
 }
 
