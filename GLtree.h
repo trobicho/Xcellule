@@ -32,7 +32,10 @@ class GLtree: public WinGL
 		void paintCel(t_cel &cel);
 		void set_debugLevel(int l){m_debug = l;}
 		void keyPressEvent(QKeyEvent *keyEvent);
+		void mousePressEvent(QMouseEvent *event);
 		void resizeGL(int width, int height);
+		void loadRLE_file(const std::string &file_path);
+		void reset();
 		void nextGen();
 
 		double celSize(){

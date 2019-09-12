@@ -11,9 +11,8 @@ class File_panel: public QTreeView
     public:
         File_panel();
         ~File_panel(){};
+		const char	*index_to_char(const QModelIndex &index);
 
-	private slots:
-		void activated(const QModelIndex & index);
     private:
 		 QFileSystemModel	m_fs_model;
 };

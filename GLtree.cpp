@@ -12,8 +12,6 @@ GLtree::GLtree(): WinGL(60, nullptr, "Xcellule")
 			(t_pos2D){(int)0x7FFFFFFF, (int)0x7FFFFFFF});
 	m_ctree->set_maxObject(9);
 	m_ctree->set_rules(&m_rules_gol);
-	LoaderRLE loader;
-	loader.load(m_ctree, "/Volumes/Storage/goinfre/trobicho/jslife/misc/heisenburp-46.lif");
 	/*
 	m_ctree->obj_add((t_cel){0, 0, 1});
 	m_ctree->obj_add((t_cel){0, 1, 1});
@@ -27,6 +25,22 @@ GLtree::GLtree(): WinGL(60, nullptr, "Xcellule")
 	m_ctree->obj_add((t_cel){-6, 2, 1});
 	m_ctree->obj_add((t_cel){-7, 1, 1});
 	*/
+}
+
+void GLtree::loadRLE_file(const std::string &file_path)
+{
+	LoaderRLE loader;
+	loader.load(m_ctree, file_path);
+}
+
+void GLtree::reset()
+{
+	delete m_ctree;
+	m_ctree = new Celtree(nullptr, (t_pos2D){0, 0},
+			(t_pos2D){(int)0x80000000, (int)0x80000000}, 
+			(t_pos2D){(int)0x7FFFFFFF, (int)0x7FFFFFFF});
+	m_ctree->set_maxObject(9);
+	m_ctree->set_rules(&m_rules_gol);
 }
 
 void GLtree::nextGen()
@@ -48,7 +62,7 @@ void GLtree::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glOrtho(m_view.min.x, m_view.max.x, m_view.min.y, m_view.max.y, -1, 100);
-	if(celSize() > 3)
+	if(celSize() > 5)
 		paintGrid();
 	paintTree(m_ctree);
 }
@@ -126,13 +140,14 @@ void GLtree::view_zoom(t_pos2D_d center, double zoom)
 	double	VMinY=(m_view.min.y-center.y)*zoom+center.y, VMaxY=(m_view.max.y-center.y)*zoom+center.y;
 	double	d;
 
-	if (VMaxX-VMinX >= VIEW_MIN_W && VMaxY-VMinY >= VIEW_MIN_H)
+	if (zoom > 1.0 || (VMaxX-VMinX >= VIEW_MIN_W && VMaxY-VMinY >= VIEW_MIN_H))
 	{
 		m_view.min.x=VMinX;
 		m_view.max.x=VMaxX;
 		m_view.min.y=VMinY;
 		m_view.max.y=VMaxY;
 	}
+	/*
 	else
 	{
 		if (VMaxX-VMinX < VIEW_MIN_W)
@@ -148,6 +163,7 @@ void GLtree::view_zoom(t_pos2D_d center, double zoom)
 			m_view.min.y -= d;
 		}
 	}
+	*/
 }
 
 
@@ -187,6 +203,12 @@ void GLtree::keyPressEvent(QKeyEvent *keyEvent)
 				view_zoom(m_view.center(), 1.1);
 			break;
 	}
+}
+
+void GLtree::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::left_button)
+		get_cel_pos(pos);
 }
 
 void GLtree::resizeGL(int width, int height)

@@ -6,7 +6,7 @@
 /*   By: trobicho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 20:23:34 by trobicho          #+#    #+#             */
-/*   Updated: 2019/09/10 23:08:24 by trobicho         ###   ########.fr       */
+/*   Updated: 2019/09/11 20:04:42 by trobicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,24 @@
 
 File_panel::File_panel()
 {
-	m_fs_model.setRootPath("/Volumes/Storage/goinfre/trobicho/jslife");
+	QSize	availableSize;
+
+	//m_fs_model.setRootPath("/Volumes/Storage/goinfre/trobicho/jslife");
+	m_fs_model.setRootPath("/home/tom/Xcellule2D_N/preconfig/");
 	setModel(&m_fs_model);
 	setRootIndex(m_fs_model.index(m_fs_model.rootPath()));
 	setAnimated(false);
 	setIndentation(20);
 	setSortingEnabled(true);
-	const QSize availableSize = QApplication::desktop()->availableGeometry(this).size();
+	availableSize = QApplication::desktop()->availableGeometry(this).size();
 	resize(availableSize / 2);
 	setColumnWidth(0, this->width() / 3);
 
 	setWindowTitle(QObject::tr("Dir View"));
 }
 
-/*
-void File_panel::on_treeView_clicked(const QModelIndex &index)
+const char	*File_panel::index_to_char(const QModelIndex &index)
 {
 	QString mPath =	m_fs_model.fileInfo(index).absoluteFilePath();
-	std::cout << "test" << mPath << std::endl;
-}
-*/
-
-void File_panel::activated(const QModelIndex &index)
-{
-	QString mPath =	m_fs_model.fileInfo(index).absoluteFilePath();
-	qDebug(qPrintable(mPath));
+	return (qPrintable(mPath));
 }

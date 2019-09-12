@@ -15,6 +15,9 @@ class MainWin: public QMainWindow
         ~MainWin(){};
 		void create_dock_windows();
 
+	public slots:
+		void slot_activated(const QModelIndex &index);
+
     private:
 		GLtree		m_tree_win;
 		File_panel	m_file_panel;
