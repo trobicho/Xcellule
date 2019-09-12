@@ -207,8 +207,16 @@ void GLtree::keyPressEvent(QKeyEvent *keyEvent)
 
 void GLtree::mousePressEvent(QMouseEvent *event)
 {
-	if (event->button() == Qt::left_button)
-		get_cel_pos(pos);
+	t_pos2D	pos;
+
+	if (event->button() == Qt::LeftButton)
+	{
+		pos = get_cel_pos(event->pos());
+		m_ctree->obj_add((t_cel){pos.x, pos.y, 1});
+	}
+	else if (event->button() == Qt::RightButton)
+	{
+	}
 }
 
 void GLtree::resizeGL(int width, int height)
@@ -234,4 +242,20 @@ void GLtree::resizeGL(int width, int height)
 		m_view.min.x = (m_view.min.x - center) * f + center;
 		m_view.max.x = (m_view.max.x - center) * f + center;
 	}
+}
+
+t_pos2D GLtree::get_cel_pos(QPoint p)
+{
+	t_pos2D_d	pos;
+	t_pos2D		cel_pos;
+	QSize		size;
+
+	size = frameSize();
+	pos = m_view.min;
+	pos.x += (m_view.max.x - m_view.min.x) * ((double)p.x() / size.width());
+	pos.y += (m_view.max.y - m_view.min.y) * (1.0 - ((double)p.y() / size.height()));
+	cel_pos.x = (int)pos.x;
+	cel_pos.y = (int)pos.y;
+	std::cout << p.x() / (double)size.width() << " : " << p.y() / (double)size.height() << std::endl;
+	return (cel_pos);
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <QtOpenGL>
 #include <QGLWidget>
-#include <GL/glu.h>
+#include <GLUT/glut.h>
 
 class WinGL: public QGLWidget
 {

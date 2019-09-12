@@ -6,7 +6,7 @@
 /*   By: trobicho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 20:23:34 by trobicho          #+#    #+#             */
-/*   Updated: 2019/09/11 20:04:42 by trobicho         ###   ########.fr       */
+/*   Updated: 2019/09/12 12:29:36 by trobicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ File_panel::File_panel()
 {
 	QSize	availableSize;
 
-	//m_fs_model.setRootPath("/Volumes/Storage/goinfre/trobicho/jslife");
-	m_fs_model.setRootPath("/home/tom/Xcellule2D_N/preconfig/");
+	m_fs_model.setRootPath("/Volumes/Storage/goinfre/trobicho");
+	//m_fs_model.setRootPath("/home/tom/Xcellule2D_N/preconfig/");
 	setModel(&m_fs_model);
 	setRootIndex(m_fs_model.index(m_fs_model.rootPath()));
 	setAnimated(false);

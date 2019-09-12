@@ -35,6 +35,7 @@ class GLtree: public WinGL
 		void mousePressEvent(QMouseEvent *event);
 		void resizeGL(int width, int height);
 		void loadRLE_file(const std::string &file_path);
+		t_pos2D get_cel_pos(QPoint p);
 		void reset();
 		void nextGen();
 
